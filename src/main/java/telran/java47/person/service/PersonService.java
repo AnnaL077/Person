@@ -3,26 +3,34 @@ package telran.java47.person.service;
 import java.util.List;
 
 import telran.java47.person.dto.AddressDto;
+import telran.java47.person.dto.AllPersonInfoDto;
+import telran.java47.person.dto.ChildDto;
 import telran.java47.person.dto.CityPopulationDto;
+import telran.java47.person.dto.EmployeeDto;
 import telran.java47.person.dto.PersonDto;
+
 
 public interface PersonService {
 	
 	Boolean addPerson(PersonDto personDto);
 	
-	PersonDto findPersonById(Integer id);
+	AllPersonInfoDto findPersonById(Integer id);
 	
-	PersonDto updateName(Integer id, String name);
+	AllPersonInfoDto updateName(Integer id, String name);
 	
-	PersonDto updateAddress(Integer id, AddressDto addressDto);
+	AllPersonInfoDto updateAddress(Integer id, AddressDto addressDto);
 	
-	PersonDto deletePerson(Integer id);
+	AllPersonInfoDto deletePerson(Integer id);
 	
-	List<PersonDto> findPersonsByName(String name);
+	List<AllPersonInfoDto> findPersonsByName(String name);
 	
-	List<PersonDto> findPersonsByCity(String city);
+	List<AllPersonInfoDto> findPersonsByCity(String city);
 	
-	List<PersonDto> findPersonsByAges(Integer ageFrom, Integer ageTo);
+	List<AllPersonInfoDto> findPersonsByAges(Integer ageFrom, Integer ageTo);
+	
+	List<ChildDto> findAllChildrens();
+	
+	List<EmployeeDto> findEmployeeBySalary(Integer minSalary, Integer maxSalary);
 	
 	List<CityPopulationDto> getCityPopulation();
 	

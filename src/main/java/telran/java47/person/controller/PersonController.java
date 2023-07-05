@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.RequiredArgsConstructor;
 import telran.java47.person.dto.AddressDto;
+import telran.java47.person.dto.AllPersonInfoDto;
+import telran.java47.person.dto.ChildDto;
 import telran.java47.person.dto.CityPopulationDto;
+import telran.java47.person.dto.EmployeeDto;
 import telran.java47.person.dto.PersonDto;
 import telran.java47.person.service.PersonService;
 
@@ -22,6 +27,7 @@ import telran.java47.person.service.PersonService;
 @RequiredArgsConstructor
 public class PersonController{
 	final PersonService personService;
+	final ObjectMapper getObjectMapper;
 
 	@PostMapping
 	public Boolean addPerson(@RequestBody PersonDto personDto) {
@@ -29,38 +35,38 @@ public class PersonController{
 	}
 
 	@GetMapping("/{id}")
-	public PersonDto findPersonById(@PathVariable Integer id) {
+	public AllPersonInfoDto findPersonById(@PathVariable Integer id) {
 		return personService.findPersonById(id);
 	}
 
 
 	@PutMapping("/{id}/name/{name}")
-	public PersonDto updateName(@PathVariable Integer id, @PathVariable String name) {
+	public AllPersonInfoDto updateName(@PathVariable Integer id, @PathVariable String name) {
 		return personService.updateName(id, name);
 	}
 
 	@PutMapping("/{id}/address")
-	public PersonDto updateAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
+	public AllPersonInfoDto updateAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
 		return personService.updateAddress(id, addressDto);
 	}
 
 	@DeleteMapping("/{id}")
-	public PersonDto deletePerson(@PathVariable Integer id) {
+	public AllPersonInfoDto deletePerson(@PathVariable Integer id) {
 		return personService.deletePerson(id);
 	}
 
 	@GetMapping("/name/{name}")
-	public List<PersonDto> findPersonsByName(@PathVariable String name) {
+	public List<AllPersonInfoDto> findPersonsByName(@PathVariable String name) {
 		return personService.findPersonsByName(name);
 	}
 
 	@GetMapping("/city/{city}")
-	public List<PersonDto> findPersonsByCity(@PathVariable String city) {
+	public List<AllPersonInfoDto> findPersonsByCity(@PathVariable String city) {
 		return personService.findPersonsByCity(city);
 	}
 
 	@GetMapping("/ages/{ageFrom}/{ageTo}")
-	public List<PersonDto> findPersonsByAges(@PathVariable Integer ageFrom, @PathVariable Integer ageTo) {
+	public List<AllPersonInfoDto> findPersonsByAges(@PathVariable Integer ageFrom, @PathVariable Integer ageTo) {
 		return personService.findPersonsByAges(ageFrom, ageTo);
 	}
 
@@ -68,6 +74,17 @@ public class PersonController{
 	@GetMapping("/population/city")
 	public List<CityPopulationDto> getCityPopulation() {
 		return personService.getCityPopulation();
+	}
+	
+	@GetMapping("/children")
+	public List<ChildDto> findAllChildrens()
+	{
+		return personService.findAllChildrens();
+	}
+	
+	@GetMapping("/salary/{minSalary}/{maxSalary}")
+	public List<EmployeeDto> findEmployeeBySalary(@PathVariable Integer minSalary, @PathVariable Integer maxSalary){
+		return personService.findEmployeeBySalary(minSalary, maxSalary);
 	}
 	
 	
